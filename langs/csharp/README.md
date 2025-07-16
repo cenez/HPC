@@ -8,7 +8,8 @@
      - 1.1.1.1 **sudo apt update**
      - 1.1.1.2 **sudo apt install git libxml2-dev -y**
 2. Copy file to opt folder:
-     * **sudo cp ~/DownloadFolder/mono_mpi_environment.tar.gz /opt/ ; cd /opt/**
+     * **sudo cp ~/DownloadFolder/mono_mpi_environment.tar.gz /opt/**
+     * **cd /opt/**
      * Optional (without sudo) - change permission on /opt: **sudo chown your_user:your_group /opt**
 3. **sudo tar -xzf mono_mpi_environment.tar.gz**
 4. **cd mono_mpi_environment/**
