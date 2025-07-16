@@ -28,7 +28,7 @@
      *      cd /opt/workspace
 6. Clone the git HPC Projects:
      *      git clone https://github.com/cenez/HPC
-     *      cd langs/csharp/AulaMPI2/
+     *      cd HPC/langs/csharp/AulaMPI2/
 7. Compile the sources:
      *      ./compile.sh
 8. To Run (4 process):
