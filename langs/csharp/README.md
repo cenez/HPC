@@ -14,8 +14,8 @@
      - 4.1 run: **./sudo_install.sh** or **./root_install.sh**
      - 4.2 read the enviromment variables of mono and mpi: **source to_end.bashrc** or **(close the terminal and open again)**
 5. **mkdir /opt/workspace ; cd /opt/workspace**
-6. **git clone https://cenezaraujo@bitbucket.org/cenezaraujo/misc.git**
-7. **cd misc/AulaMPI2/**
+6. **git clone https://github.com/cenez/HPC**
+7. **cd langs/csharp/AulaMPI2/**
 8. **./compile.sh**
 9. To Run (4 process):
      - 9.1 **cd bin/**
