@@ -7,7 +7,7 @@
      - 1.1.1 Ex: Ubuntu or Debian: 
      *      sudo apt update
      *      sudo apt install git libxml2-dev -y
-2. Copy the downloaded file (mono_mpi_environment.tar.gz) to /opt folder:
+2. Copy the downloaded file ([mono_mpi_environment.tar.gz](https://drive.google.com/file/d/1juuCPMtXjgo2edPJn9GzRNpVGQQRMaVW/view?usp=sharing)) to /opt folder:
      *      sudo cp ~/DownloadFolder/mono_mpi_environment.tar.gz /opt/
      *      cd /opt/
      * Optional (without sudo) - change permission on /opt:
