@@ -1,14 +1,10 @@
-#!/bin/sh
+## Exemplo de como compilar e executar OpenMP:
+#### Para compilar/executar **com OpenMP**:
+    gcc -o omp -fopenmp vector_add_omp.c
+#### Para rodar e ver o tempo gasto:
+    time ./omp 100000
+#### Para apagar o executável compilado:
+    rm omp
 
-#export OMP_NUM_THREADS=8
 
-gcc -o a -fopenmp open_mp.c
-time ./a $1
-
-gcc -o b -fopenmp vector_add.c
-time ./b $1
-
-#rm a b
-
-#nvcc hello.cu -o a ; ./a
 
