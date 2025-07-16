@@ -1,7 +1,9 @@
 #include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
 #include <omp.h>
 #include <time.h>
-#include <math.h>
+
 #define VET_SIZE 100000000
 
 #ifdef _OPENMP
@@ -32,7 +34,8 @@ void tempo() {
         wall_timer = omp_get_wtime();
         #pragma omp parallel for private(i) num_threads(nthreads)
         for(i = 0; i < VET_SIZE; i++){
-            x[i] = sqrt(i*4 + i*2 + i);
+            //x[i] = sqrt(i*4 + i*2 + i);
+            x[i] = (i*4 + i*2 + i);
         }
         printf("ID: %d\ttime on clock(): %f\ttime on wall: %f\n",
                  nthreads,
