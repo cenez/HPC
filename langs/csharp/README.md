@@ -18,7 +18,7 @@
      *      cd mono_mpi_environment/
      *      ./sudo_install.sh # When used sudo permission
      *      ./root_install.sh # When used root permission
-     - 4.1 read the enviromment variables of mono and mpi:
+     - 4.1 Read the enviromment variables of mono and mpi:
      *      source to_end.bashrc
      - 4.2 **Or close the terminal and open again**
      - 4.3 Test your enviromment:
