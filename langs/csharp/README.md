@@ -12,24 +12,29 @@
      *      cd /opt/
      * Optional (without sudo) - change permission on /opt:
      *      sudo chown your_user:your_group /opt
-3. **sudo tar -xzf mono_mpi_environment.tar.gz**
-4. **cd mono_mpi_environment/**
-     - 4.1 run: **./sudo_install.sh** or **./root_install.sh**
-     - 4.2 read the enviromment variables of mono and mpi: **source to_end.bashrc** or **(close the terminal and open again)**
-5. **mkdir /opt/workspace ; cd /opt/workspace**
-6. **git clone https://github.com/cenez/HPC**
-7. **cd langs/csharp/AulaMPI2/**
-8. **./compile.sh**
-9. To Run (4 process):
+3. "Unzip" the file:
+     *      sudo tar -xzf mono_mpi_environment.tar.gz
+5. Open the folder to install:
+     *      cd mono_mpi_environment/
+     *      ./sudo_install.sh # When used sudo permission
+     *      ./root_install.sh # When used root permission
+     - 5.1 read the enviromment variables of mono and mpi:
+     *      source to_end.bashrc
+     - 5.2 or **(close the terminal and open again)**
+7. **mkdir /opt/workspace ; cd /opt/workspace**
+8. **git clone https://github.com/cenez/HPC**
+9. **cd langs/csharp/AulaMPI2/**
+10. **./compile.sh**
+11. To Run (4 process):
      - 9.1 **cd bin/**
      - 9.2 **mpirun -np 4 mono AulaMPI2.exe**
      - 9.3 **cd ../**
-10. To Run Using Script (4 process):
+12. To Run Using Script (4 process):
      - **./compile_run.sh 4**
      - **OR just run, if you already compile:**
      - **./run.sh 4**
 
-11. **The print is anything like:**
+13. **The print is anything like:**
      * allToal: node 0 -> 0:0 0:1 0:2 0:3
      * allToal: node 1 -> 1:0 1:1 1:2 1:3
      * allToal: node 2 -> 2:0 2:1 2:2 2:3
