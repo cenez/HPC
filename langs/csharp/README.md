@@ -11,7 +11,7 @@
      * **sudo cp ~/DownloadFolder/mono_mpi_environment.tar.gz /opt/**
      * **cd /opt/**
      * Optional (without sudo) - change permission on /opt:
-     *      1. **sudo chown your_user:your_group /opt**
+     *      sudo chown your_user:your_group /opt
 3. **sudo tar -xzf mono_mpi_environment.tar.gz**
 4. **cd mono_mpi_environment/**
      - 4.1 run: **./sudo_install.sh** or **./root_install.sh**
