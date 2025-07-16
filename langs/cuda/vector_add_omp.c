@@ -45,7 +45,7 @@ void vector_add(float *out, float *a, float *b, int n) {
     	//printf("id=%d, bdim=%d\n", idx, bdim);
     	for(int i = idx; i < n; i += bdim){
     		out[i] = a[i] + b[i];
-		task(n);
+		    task(n);
     	}
     }
 }
@@ -68,17 +68,14 @@ int main(int argc, char *argv[]){
     out = (float*)malloc(sizeof(float) * N);
 
     for(int i = 0; i < N; i++){
-        a[i] = i; 
+        a[i] = i;
         b[i] = i;
     }
     //hello();
     vector_add(out, a, b, N);
     verify(out, a, b, N);
-    
+
     free(a);
     free(b);
     free(out);
 }
-
-
-
