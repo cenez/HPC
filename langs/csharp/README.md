@@ -1,6 +1,6 @@
 ----
 
-# This folder include a miscellaneous of examples and resources, target to run **MPI** and **MONO** on Linux or Windows.
+# This folder include a miscellaneous of examples and resources, target to run **MPI** and **MONO** on Linux.
 ### Enviromment MPI and MONO on Linux:
 1. Download the [mono_mpi_environment.tar.gz](https://drive.google.com/file/d/1juuCPMtXjgo2edPJn9GzRNpVGQQRMaVW/view?usp=sharing);
      - 1.1 Dependencies: You need install: libxml2-dev and git
