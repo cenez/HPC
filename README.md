@@ -5,7 +5,8 @@
 ####
     cd langs/cuda
 ####
+    ./teste_desempenho.sh 1000
+#### Aumente a carga, conforme a realidade da sua máquina. Ex:
     ./teste_desempenho.sh 100000
-
 ## OBS: Abra cada pasta no projeto para ler as instruções.
 
