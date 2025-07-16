@@ -5,8 +5,8 @@
 1. Download the [mono_mpi_environment.tar.gz](https://drive.google.com/file/d/1juuCPMtXjgo2edPJn9GzRNpVGQQRMaVW/view?usp=sharing);
      - 1.1 Dependencies: You need install: libxml2-dev and git
      - 1.1.1 Ex: Ubuntu or Debian: 
-     - 1.1.1.1 **sudo apt update**
-     - 1.1.1.2 **sudo apt install git libxml2-dev -y**
+     *      sudo apt update
+     *      sudo apt install git libxml2-dev -y
 2. Copy file to opt folder:
      *      sudo cp ~/DownloadFolder/mono_mpi_environment.tar.gz /opt/
      *      cd /opt/
