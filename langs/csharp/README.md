@@ -38,7 +38,7 @@
 9. To Run Using Script (4 process):
      *      ./compile_run.sh 4
      - **OR just run, if you already compile:**
-     *      ./run.sh 4**
+     *      ./run.sh 4
 
 10. **The print is anything like:**
      * allToal: node 0 -> 0:0 0:1 0:2 0:3
