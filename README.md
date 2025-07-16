@@ -5,7 +5,7 @@
 ####
     cd langs/cuda
 ####
-    ./teste_desempenho.sh
+    ./teste_desempenho.sh 100000
 
 ## OBS: Abra cada pasta no projeto para ler as instruções.
 
