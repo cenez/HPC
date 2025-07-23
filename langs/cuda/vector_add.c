@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include <math.h>
 #include <assert.h>
 
@@ -29,6 +30,7 @@ void vector_add(float *out, float *a, float *b, int n) {
 int main(int argc, char *argv[]){
 	if(argc<2) return 0;
 	long N = atol(argv[1]);
+	printf("############### Teste de desempenho para CPU(%ld)\n", N);
 
     float *a, *b, *out;
 
@@ -40,7 +42,13 @@ int main(int argc, char *argv[]){
         a[i] = i; b[i] = i;
     }
 
+	clock_t start = clock();
     vector_add(out, a, b, N);
+	clock_t end = clock();
+	float seconds = (float)(end - start) / 10000000; // / CLOCKS_PER_SEC;
+    printf("Time: %.5f seconds SERIAL. Verify: ", seconds);
+
+    //vector_add(out, a, b, N);
 	//out[0] = 1;
 	verify(out, a, b, N);
 
