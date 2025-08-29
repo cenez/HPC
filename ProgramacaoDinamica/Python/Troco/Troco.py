@@ -1,151 +1,125 @@
-public class Troco {
-	public static int[] qtde;
-	public static int[] c;
-	public static void main(String[] args) {
-		if (args.length<1) {
-			System.out.println("Parametro: Qtd troco?");
-			System.exit(0);
-		}
-		int troco = Integer.parseInt(args[0]);
-		/*
-		
-		int troco = 8;
-		int[] padrao = {2, 4, 6};
-		//int[] padrao = {5, 7, 17, 25};
-		//int[] padrao = {98,99,100};//para 33:[ 7 7 7 7 4 1 ]
-		//int[] padrao = {7,17,25};
-		
-		*/
-		double inicio, tempo;
-		int q;		
-		
-		/*
-		int troco = 11;
-		int[] caixa = {2, 3, 4, 6};
-		
-		int troco = 107;
-		int[] caixa = {1, 2, 3, 4, 5, 7};
-		 */
+import sys
+import time
 
-		int[] caixa = {2, 3, 4, 5, 7};
+class Troco:
+	def __init__(self):
+		self.c = None
 
-		qtde = new int[troco+1];
-		for (int i=0; i<qtde.length; i++) { qtde[i] = -1; }
-		
-		inicio = System.currentTimeMillis();
-		q = trocoDinamico(caixa, troco);
-		tempo = System.currentTimeMillis() - inicio;
-		imprime(c, troco);
-		System.out.printf("%-15s%10s%10s\n", "Metodo", "Qtde", "Tempo");
-		System.out.printf("%-15s%10d%10.2f\n", "Dinamico", q, tempo);
+	def memoization_vector(self, troco):
+		qtde = [-1] * (troco + 1)
+		return qtde
 
-		inicio = System.currentTimeMillis();
-		q = trocoGuloso(caixa, troco);
-		tempo = System.currentTimeMillis() - inicio;
-		System.out.printf("%-15s%10d%10.2f\n", "Guloso", q, tempo);
-		
-		inicio = System.currentTimeMillis();
-		q = trocoMemoization(caixa, troco);
-		tempo = System.currentTimeMillis() - inicio;
-		System.out.printf("%-15s%10d%10.2f\n", "Memoization", q, tempo);
-		
-		inicio = System.currentTimeMillis();
-		q = trocoRecursivo(caixa, troco);
-		tempo = System.currentTimeMillis() - inicio;
-		System.out.printf("%-15s%10d%10.2f\n", "Recursivo", q, tempo);
-	}
-	private static int trocoGuloso(int[] caixa, int troco) {
-		if (troco==0) return 0;
-		int tmp_t = troco;
-		int conta = 0;
-		int last_id = caixa.length-1;
-		boolean sair = false;
-		while(sair!=true) {
-			sair = true;
-			for (int t = last_id; t>=0; t--) {
-				if(tmp_t-caixa[t]>=0) {
-					tmp_t = tmp_t - caixa[t];
-					conta++;
-					last_id = t;
-					sair = false;
-					break;
-				}
-			}
-			if (sair == true && tmp_t > 0) 
-				conta = Integer.MAX_VALUE;
-		}
-		return conta;
-	}
-	public static int trocoRecursivo(int[] caixa, int troco) {
-		if (troco != 0) {
-			int qMin = Integer.MAX_VALUE;
-			for (int i = 0; i < caixa.length; i++) {
-				if (troco - caixa[i] >= 0) {
-					int q = trocoRecursivo(caixa, troco - caixa[i]) + 1;
-					if (q < 0) { q = Integer.MAX_VALUE; }//Estouro de Integer MaxValue
-					if (q < qMin) qMin = q;
-				}
-			}
-			return qMin;
-		}
-		return 0;
-	}
-	public static int trocoMemoization(int[] caixa, int troco) {
-		int qMin = 0;
-		if (troco != 0) {
-			qMin = Integer.MAX_VALUE;
-			for (int i = 0; i < caixa.length; i++) {
-				if (troco - caixa[i] >= 0) {
-					int q = 0;
-					if(qtde[troco]!=-1) { 
-						q = qtde[troco];
-					}
-					else {
-						q = trocoMemoization(caixa, troco - caixa[i]) + 1;
-					}
-					// int q = trocoRecursivo(caixa, troco - caixa[i]) + 1;
-					if (q < 0) { q = Integer.MAX_VALUE; } // Estouro de Integer MaxValue
-					if (q < qMin) qMin = q;
-				}
-			}
-		}
-		qtde[troco] = qMin;
-		return qMin;
-	}
-	/*
+	def trocoGuloso(self, caixa, troco):
+		if troco==0: 
+			return 0
+
+		tmp_t, conta, sair = troco, 0, False
+		last_id = len(caixa) - 1
+
+		while (sair!=True):
+			sair = True
+			for t in range(last_id, -1, -1):
+				if(tmp_t - caixa[t]>=0):
+					tmp_t = tmp_t - caixa[t]
+					conta += 1
+					last_id = t
+					sair = False
+					break
+
+			if (sair == True and tmp_t > 0): 
+				conta = sys.maxsize
+		return conta
+
+	def trocoRecursivo(self, caixa, troco):
+		if (troco != 0):
+			qMin = sys.maxsize
+			for i in range(len(caixa)):
+				if (troco - caixa[i] >= 0):
+					q = self.trocoRecursivo(caixa, troco - caixa[i]) + 1
+					if (q < 0): # Estouro de Integer MaxValue
+						q = sys.maxsize
+					if (q < qMin):
+						qMin = q
+			return qMin
+		return 0
+
+	def trocoMemoization(self, caixa, troco, qtde):
+		qMin = 0
+		if (troco != 0):
+			qMin = sys.maxsize
+			for i in range(len(caixa)):
+				if (troco - caixa[i] >= 0):
+					q = 0
+					if(qtde[troco]!=-1):
+						q = qtde[troco]
+					else:
+						q = self.trocoMemoization(caixa, troco - caixa[i], qtde) + 1
+					if (q < 0): # Estouro de Integer MaxValue
+						q = sys.maxsize
+					if (q < qMin):
+						qMin = q
+		qtde[troco] = qMin
+		return qMin
+
+	"""
 	 * inicio: q[t..troco]=INFINITO, onde 0<t<=troco
 	 * q[0] = 0
 	 * q[t]=min(q[t], q[t-caixa[k]]+1), se (t-caixa[k])>=0
-	 */
-	public static int trocoDinamico(int[] caixa, int troco) {
-		int[] q = new int[troco + 1];
-		c = new int[troco + 1];
-		q[0] = 0;
-		for (int t = 1; t <= troco; t++) {
-			q[t] = Integer.MAX_VALUE;
-			for (int p = 0; p < caixa.length; p++) {
-				if(t-caixa[p]>=0) {
-					if(q[t-caixa[p]]+1>0) {
-		            	if(q[t]>(q[t-caixa[p]]+1)) {
-		            		c[t] = caixa[p];
-		            	}
-						q[t] = Math.min(q[t], q[t-caixa[p]]+1);
-					}
-				}
-			}
-		}
-		return q[troco];
-	}
-	public static void imprime(int[] c, int troco) {
-		int sub = troco, soma = 0, max = 0;
-		System.out.print("moedas: [ ");
-		while (sub > 0 && (max<=troco)) {
-			System.out.print(c[sub] + " ");
-			soma += c[sub];
-			sub = sub - c[sub];
-			max++;
-		}
-		System.out.println("] Soma("+troco+")="+(soma==troco));
-	}
-}
+	"""
+	def trocoDinamico(self, caixa, troco):
+		q = [0] * (troco + 1)
+		self.c = [0] * (troco + 1)
+		q[0] = 0
+		for t in range(1, troco+1):
+			q[t] = sys.maxsize
+			for p in range(len(caixa)):
+				if(t-caixa[p]>=0):
+					if(q[t-caixa[p]]+1>0):
+						if(q[t]>(q[t-caixa[p]]+1)):
+							self.c[t] = caixa[p]
+						q[t] = min(q[t], q[t-caixa[p]]+1)
+		return q[troco]
+
+	def imprime(self, troco):
+		if (self.c is None):
+			print("Nenhum calculo realizado")
+			return
+		sub, soma, maxv = troco, 0, 0
+		print("moedas: [ ", end="")
+		while (sub > 0 and (maxv<=troco)):
+			print(f'{self.c[sub]} ', end="")
+			soma += self.c[sub]
+			sub = sub - self.c[sub]
+			maxv += 1
+		print(f'] Soma({troco})={(soma==troco)}')
+
+if __name__ == "__main__":
+	app = Troco()
+	inicio, tempo = 0.0, 0.0
+	q = 0
+	troco = 37
+	caixa = [2, 3, 4, 5, 7]
+	ms = 1000
+
+	inicio = time.time()*ms
+	q = app.trocoDinamico(caixa, troco)
+	tempo = time.time()*ms - inicio
+	app.imprime(troco)
+	print("%15s %30s %15s" % ("Metodo", "Qtde", "Tempo"))
+	print("%15s %30d %15.2f ms" % ("Dinamico", q, tempo))
+
+	inicio = time.time()*ms
+	q = app.trocoGuloso(caixa, troco)
+	tempo = time.time()*ms - inicio
+	print("%15s %30d %15.2f ms" % ("Guloso", q, tempo))
+		
+	inicio = time.time()*ms
+	q = app.trocoMemoization(caixa, troco, app.memoization_vector(troco))
+	tempo = time.time()*ms - inicio
+	print("%15s %30d %15.2f ms" % ("Memoization", q, tempo))
+
+	inicio = time.time()*ms
+	q = app.trocoRecursivo(caixa, troco)
+	tempo = time.time()*ms - inicio
+	print("%15s %30d %15.2f ms" % ("Recursivo", q, tempo))
 

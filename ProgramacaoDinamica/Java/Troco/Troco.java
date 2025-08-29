@@ -1,13 +1,16 @@
 public class Troco {
-	public static int[] qtde;
-	public static int[] c;
+	private int[] c = null;
+	
 	public static void main(String[] args) {
+		Troco app = new Troco();
+		double inicio, tempo;
+		int q;
+		/*
 		if (args.length<1) {
 			System.out.println("Parametro: Qtd troco?");
 			System.exit(0);
 		}
 		int troco = Integer.parseInt(args[0]);
-		/*
 		
 		int troco = 8;
 		int[] padrao = {2, 4, 6};
@@ -16,45 +19,39 @@ public class Troco {
 		//int[] padrao = {7,17,25};
 		
 		*/
-		double inicio, tempo;
-		int q;		
+		int troco = 37;
+		int[] caixa = {2, 3, 4, 5, 7};
 		
 		/*
 		int troco = 11;
 		int[] caixa = {2, 3, 4, 6};
 		
-		int troco = 107;
 		int[] caixa = {1, 2, 3, 4, 5, 7};
 		 */
-
-		int[] caixa = {2, 3, 4, 5, 7};
-
-		qtde = new int[troco+1];
-		for (int i=0; i<qtde.length; i++) { qtde[i] = -1; }
 		
 		inicio = System.currentTimeMillis();
-		q = trocoDinamico(caixa, troco);
+		q = app.trocoDinamico(caixa, troco);
 		tempo = System.currentTimeMillis() - inicio;
-		imprime(c, troco);
+		app.imprime(troco);
 		System.out.printf("%-15s%10s%10s\n", "Metodo", "Qtde", "Tempo");
-		System.out.printf("%-15s%10d%10.2f\n", "Dinamico", q, tempo);
+		System.out.printf("%-15s%10d%10.2f ms\n", "Dinamico", q, tempo);
 
 		inicio = System.currentTimeMillis();
-		q = trocoGuloso(caixa, troco);
+		q = app.trocoGuloso(caixa, troco);
 		tempo = System.currentTimeMillis() - inicio;
-		System.out.printf("%-15s%10d%10.2f\n", "Guloso", q, tempo);
+		System.out.printf("%-15s%10d%10.2f ms\n", "Guloso", q, tempo);
 		
 		inicio = System.currentTimeMillis();
-		q = trocoMemoization(caixa, troco);
+		q = app.trocoMemoization(caixa, troco, app.memoization_vector(troco));
 		tempo = System.currentTimeMillis() - inicio;
-		System.out.printf("%-15s%10d%10.2f\n", "Memoization", q, tempo);
+		System.out.printf("%-15s%10d%10.2f ms\n", "Memoization", q, tempo);
 		
 		inicio = System.currentTimeMillis();
-		q = trocoRecursivo(caixa, troco);
+		q = app.trocoRecursivo(caixa, troco);
 		tempo = System.currentTimeMillis() - inicio;
-		System.out.printf("%-15s%10d%10.2f\n", "Recursivo", q, tempo);
+		System.out.printf("%-15s%10d%10.2f ms\n", "Recursivo", q, tempo);
 	}
-	private static int trocoGuloso(int[] caixa, int troco) {
+	private int trocoGuloso(int[] caixa, int troco) {
 		if (troco==0) return 0;
 		int tmp_t = troco;
 		int conta = 0;
@@ -76,7 +73,7 @@ public class Troco {
 		}
 		return conta;
 	}
-	public static int trocoRecursivo(int[] caixa, int troco) {
+	public int trocoRecursivo(int[] caixa, int troco) {
 		if (troco != 0) {
 			int qMin = Integer.MAX_VALUE;
 			for (int i = 0; i < caixa.length; i++) {
@@ -90,7 +87,7 @@ public class Troco {
 		}
 		return 0;
 	}
-	public static int trocoMemoization(int[] caixa, int troco) {
+	public int trocoMemoization(int[] caixa, int troco, int[] qtde) {
 		int qMin = 0;
 		if (troco != 0) {
 			qMin = Integer.MAX_VALUE;
@@ -101,7 +98,7 @@ public class Troco {
 						q = qtde[troco];
 					}
 					else {
-						q = trocoMemoization(caixa, troco - caixa[i]) + 1;
+						q = trocoMemoization(caixa, troco - caixa[i], qtde) + 1;
 					}
 					// int q = trocoRecursivo(caixa, troco - caixa[i]) + 1;
 					if (q < 0) { q = Integer.MAX_VALUE; } // Estouro de Integer MaxValue
@@ -117,7 +114,7 @@ public class Troco {
 	 * q[0] = 0
 	 * q[t]=min(q[t], q[t-caixa[k]]+1), se (t-caixa[k])>=0
 	 */
-	public static int trocoDinamico(int[] caixa, int troco) {
+	public int trocoDinamico(int[] caixa, int troco) {
 		int[] q = new int[troco + 1];
 		c = new int[troco + 1];
 		q[0] = 0;
@@ -136,7 +133,9 @@ public class Troco {
 		}
 		return q[troco];
 	}
-	public static void imprime(int[] c, int troco) {
+	public void imprime(int troco) { this.imprime(this.c, troco); }
+	public void imprime(int[] c, int troco) {
+		if (this.c== null) return;
 		int sub = troco, soma = 0, max = 0;
 		System.out.print("moedas: [ ");
 		while (sub > 0 && (max<=troco)) {
@@ -146,6 +145,11 @@ public class Troco {
 			max++;
 		}
 		System.out.println("] Soma("+troco+")="+(soma==troco));
+	}
+	public int[] memoization_vector(int troco) {
+		int[] qtde = new int[troco+1];
+		for (int i=0; i<qtde.length; i++) { qtde[i] = -1; }
+		return qtde;
 	}
 }
 
