@@ -22,7 +22,7 @@ public class MatrixView extends JFrame {
 		buttons = new Button[rows+1][cols+1];
 		s = new int[rows+1][cols+1];
 		computations = new String[rows+1][cols+1];
-		this.setTitle("Parentizacao de matrizes");
+		this.setTitle("Parentizacao de matrizes - Testes: prof. Cenez em 28-08-2025");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1280, 720);
 		for(int i=1;i<=rows;i++) {
