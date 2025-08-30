@@ -1,43 +1,44 @@
-public class Fibonacci {
-	/*
+import time
+
+class Fibonacci:
+	"""
 	 * mem[0] = 0
 	 * mem[1] = 1
 	 * mem[n]=mem[n-1] + mem[n-2]
-	 */
-	public static long[] mem = null;
-
-	public static void main(String[] args) {
-		int n = 40;
-		long t = System.currentTimeMillis();
-		long f = fibR(n);
-		t = (System.currentTimeMillis() - t);
-		System.out.format("Fibo: %d : Tempo: %d ms \n", f, t);
-	}
-	public static long fibI(long n){
-		if(n==0) return 0;
-		if(n==1) return 1;
+	"""
+	mem = None
+	def __init__(self):
+		pass
+	def fibI(self, n):
+		if(n==0): return 0
+		if(n==1): return 1
 		    
-		long a = 0;
-		long b = 1;
-		long c = a+b;
-		for(int i = 0; i<n-1; i++){
-			c = a + b;
-			a = b;
-			b = c;
-		}
-		return c;
-	}
-	public static long fibR(int n) {
-		//if (mem == null) mem = new long[n + 1]; 
-		//if (mem[n] != 0) return mem[n]; //memoizacao
-		if (n <= 0) return 0;
-		if (n == 1) return 1;
+		a = 0
+		b = 1
+		c = a+b
+		for i in range(n-1):
+			c = a + b
+			a = b
+			b = c
+		return c
 
-		long l1 = fibR(n - 1);
-		//mem[n - 1] = l1;
-		long l2 = fibR(n - 2);
-		//mem[n - 2] = l2;
+	def fibR(self, n):
+		if (Fibonacci.mem == None): Fibonacci.mem = [0]*(n + 1) # 
+		if (Fibonacci.mem[n] != 0): return Fibonacci.mem[n] #memoizacao
+		if (n <= 0): return 0
+		if (n == 1): return 1
+
+		l1 = self.fibR(n - 1)
+		Fibonacci.mem[n - 1] = l1
+		l2 = self.fibR(n - 2)
+		Fibonacci.mem[n - 2] = l2
 		
-		return l1 + l2;
-	}
-}
+		return l1 + l2
+
+if __name__ == "__main__":
+	app = Fibonacci()
+	n = 50
+	inicio = time.time()*1000
+	f = app.fibR(n)
+	tempo = time.time()*1000 - inicio
+	print("FIbo: %10d Tempo: %15.2f ms" % (f, tempo))
