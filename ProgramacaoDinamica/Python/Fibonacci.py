@@ -1,3 +1,4 @@
+import sys
 import time
 
 class Fibonacci:
@@ -6,39 +7,62 @@ class Fibonacci:
 	 * mem[1] = 1
 	 * mem[n]=mem[n-1] + mem[n-2]
 	"""
-	mem = None
-	def __init__(self):
-		pass
-	def fibI(self, n):
-		if(n==0): return 0
-		if(n==1): return 1
-		    
-		a = 0
-		b = 1
-		c = a+b
-		for i in range(n-1):
-			c = a + b
-			a = b
-			b = c
-		return c
+	def __init__(self, n: int):
+		self.mem = [0]*(n + 1)
+		self.mem[0] = 0
+		self.mem[1] = 1
+		self.n = n
 
-	def fibR(self, n):
-		if (Fibonacci.mem == None): Fibonacci.mem = [0]*(n + 1) # 
-		if (Fibonacci.mem[n] != 0): return Fibonacci.mem[n] #memoizacao
-		if (n <= 0): return 0
-		if (n == 1): return 1
+	def fibI(self):
+		if(self.n <= 1): 
+			return self.n
+		res = 1
+		ultimo = 1
+		penultimo = 1
+		for i in range(3, self.n+1):
+			res = ultimo + penultimo
+			penultimo = ultimo
+			ultimo = res
+		return res
 
-		l1 = self.fibR(n - 1)
-		Fibonacci.mem[n - 1] = l1
-		l2 = self.fibR(n - 2)
-		Fibonacci.mem[n - 2] = l2
-		
-		return l1 + l2
+	def fibRMem(self): return self.__fibRMem(self.n)
+	def __fibRMem(self, n: int):
+		if (n <=1): 
+			return n
+		if (self.mem[n] != 0): 
+			return self.mem[n] #memoizacao
+
+		ultimo = self.__fibRMem(n - 1)
+		self.mem[n - 1] = ultimo
+		penultimo = self.__fibRMem(n - 2)
+		self.mem[n - 2] = penultimo
+		return ultimo + penultimo
+
+	def fibR(self): return self.__fibR(self.n)
+	def __fibR(self, n: int):
+		if (n <= 1): 
+			return n
+		return self.__fibR(n - 1) + self.__fibR(n - 2)
 
 if __name__ == "__main__":
-	app = Fibonacci()
-	n = 50
+	n = 30
+	if len(sys.argv) > 1:
+		n = int(sys.argv[1])
+
+	print("%s %20s %20s %20s" % ("N", "Resultado", "Tipo", "Tempo (ms)"))
+	app = Fibonacci(n)
 	inicio = time.time()*1000
-	f = app.fibR(n)
+	f = app.fibI()
 	tempo = time.time()*1000 - inicio
-	print("FIbo: %10d Tempo: %15.2f ms" % (f, tempo))
+	print("%d %20d %20s %20.2f ms" % (n, f, "Iterativo", tempo))
+
+	inicio = time.time()*1000
+	f = app.fibRMem()
+	tempo = time.time()*1000 - inicio
+	print("%d %20d %20s %20.2f ms" % (n, f, "Memoizado", tempo))
+
+	inicio = time.time()*1000
+	f = app.fibR()
+	tempo = time.time()*1000 - inicio
+	print("%d %20d %20s %20.2f ms" % (n, f, "Recursivo", tempo))
+
