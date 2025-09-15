@@ -2,6 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection.Emit;
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using System.Reflection;
 
 namespace AulaMPI2 {
     public class AppMain {
@@ -12,6 +16,7 @@ namespace AulaMPI2 {
         public static string file = "matrix" + N + ".txt";
 
         public static void Main(string[] args) {
+            Console.WriteLine("IP: " + GetLocalIPAddress());
             MPIEnv.mpi_start();
             if (MPIEnv.Rank == 0){
                 //Serial_GenerateMatrixFile();
@@ -19,6 +24,15 @@ namespace AulaMPI2 {
             MPIEnv.WaitBarrier();
             RunMPI_Tests();
             MPIEnv.mpi_stop();
+        }
+        public static string GetLocalIPAddress() {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList) {
+                if (ip.AddressFamily == AddressFamily.InterNetwork) {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("No network adapters with an IPv4 address in the system!");
         }
         public static void RunMPI_Tests(){
             test1();
