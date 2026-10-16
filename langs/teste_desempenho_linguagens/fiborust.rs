@@ -3,10 +3,10 @@
 use std::time::Instant;
 use std::env;
 
-pub fn fib(n: i32) -> u64 {
-    if n < 0 {
-        panic!("{} is negative!", n);
-    }
+pub fn fib(n: i64) -> i64 {
+    //if n < 0 {
+    //    panic!("{} is negative!", n);
+    //}
     match n {
         //0 => panic!("zero is not a right argument to fibonacci_reccursive()!"),
         0 => 0,
@@ -24,7 +24,7 @@ fn main() {
         let args: Vec<String> = env::args().collect();
         let s = &args[1];
         
-        let n = match s.parse::<i32>() {
+        let n = match s.parse::<i64>() {
             Ok(x) => x, 
             Err(_e) => 10, 
         };
